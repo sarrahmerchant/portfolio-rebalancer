@@ -29,7 +29,7 @@ def save_portfolio(portfolio):
     except IOError:
         st.error("Error saving portfolio data")
 
-def recommend_trades(label, bucket_targets, bucket_values, holdings, key, total):
+def recommend_trades(label, bucket_targets, bucket_values, holdings, balance_by, total):
     """Show a rebalancing plan and per-stock trades for a set of buckets.
 
     bucket_targets: {bucket: target_fraction}
@@ -65,7 +65,7 @@ def recommend_trades(label, bucket_targets, bucket_values, holdings, key, total)
         if abs(delta) < 0.01:
             continue
 
-        bucket_stocks = [h for h in holdings if h[key] == bucket]
+        bucket_stocks = [h for h in holdings if h[balance_by] == bucket]
         bucket_value = bucket_values.get(bucket, 0)
 
         if not bucket_stocks or bucket_value == 0:
